@@ -44,9 +44,9 @@ body {
 .tools-cont {
     display: flex;
     height: 5rem;
-    width: 55vw;
+    width: 60vw;
     background-color: #f1f2f6;
-    justify-content: space-around;
+    justify-content: space-evenly;
     position: absolute;
     top: 2rem;
     left: 25vw;
@@ -77,6 +77,43 @@ body {
     justify-content: center;
     align-items: center;
 }
+ .rect-width-cont {
+
+    height: 4vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
+.rect-tool-cont {
+    height: 5rem;
+    width: 8rem;
+    background-color: #f1f2f6;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    position: absolute;
+    border-radius: 3px;
+    top: 7rem;
+    left: 73vw;
+    display: none;
+}
+.rect-width-cont input {
+    width: 80%;
+ } 
+.rect-color-cont {
+
+    height: 8vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+.rect-color {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+  
+
+} 
+
 
 .pencil-width-cont input {
     width: 80%;

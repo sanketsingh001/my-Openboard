@@ -2,14 +2,17 @@
 let toolsCont = document.querySelector(".tools-cont");
 let pencilToolCont = document.querySelector(".pencil-tool-cont");
 let eraserToolCont = document.querySelector(".eraser-tool-cont")
+let rectToolCont=document.querySelector(".rect-tool-cont")
 let pencil = document.querySelector(".pencil");
 let eraser = document.querySelector(".eraser");
 let optionsCont = document.querySelector(".options-cont");
 let optionsFlag = true;
 let pencilFlag = false;
 let eraserFlag = false;
+let rectFlag=false;
 let sticky = document.querySelector(".sticky");
 let upload = document.querySelector(".upload");
+let rect1=document.querySelector(".rect");
 
 //true -> show the tools , false-> hide tools
 //used for the hamburger menu
@@ -60,6 +63,18 @@ pencil.addEventListener("click", (e) => {
 
     }
 })
+// rect1.addEventListener("click", (e) => {
+//     //true will indicate show pencil tool,false ->Hide pencil tool.
+//     rectFlag = !rectFlag;
+//     if (rectFlag) {
+//         rectToolCont.style.display = "block";
+//         eraserToolCont.style.display="none";
+//     }
+//     else {
+//         rectToolCont.style.display = "none";
+
+//     }
+// })
 eraser.addEventListener("click", (e) => {
     //true will indicate show eraser tool,false ->Hide erser tool.
     eraserFlag = !eraserFlag;

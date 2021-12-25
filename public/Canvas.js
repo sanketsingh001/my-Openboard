@@ -8,9 +8,9 @@ let EraserWidthElem = document.querySelector(".eraser-width");
 let download = document.querySelector(".download");
 let redo = document.querySelector(".redo");
 let undo = document.querySelector(".undo");
-
+let line=document.querySelector(".line")
 let body = document.querySelector("body");
-
+let rect=document.querySelector(".rect");
 let penColor = "red";
 let eraserColor = "white";
 let penWidth = PencilWidthElem.value;
@@ -33,6 +33,12 @@ let tool = canvas.getContext("2d");
 let cTool = "pencil";
 Pencil.addEventListener("click", function () {
     cTool = "pencil";
+})
+rect.addEventListener("click", function () {
+    cTool = "rect";
+})
+line.addEventListener("click", function () {
+    cTool = "line";
 })
 
 
@@ -72,14 +78,15 @@ canvas.addEventListener("mouseup", function (e) {
 
     else if (cTool == "line" || cTool == "rect") {
 
-        fX = e.clientX-boardleft;
-        fY = e.clientY + boardtop;
+        fX = e.clientX;
+        fY = e.clientY - boardtop;
         width = fX - iX;
         height = fY - iY;
         if (cTool == "rect") {
 
             tool.strokeRect(iX, iY, width, height)
         } else if (cTool == "line") {
+           
             tool.beginPath();
             tool.moveTo(iX, iY);
             tool.lineTo(fX, fY);
