@@ -7,7 +7,7 @@ const app=express();//initializing the application and making the server ready
 app.use(express.static("public"));
 
 
-let port=5000
+let port=process.env.port || 5000;
 let server=app.listen(port,()=>{
 console.log("Listening to port"+port);
 })
@@ -17,10 +17,10 @@ io.on("connection",(socket)=>{
     console.log("Made socket Connection") 
 
 //recieved data    
-socket.on("beginPath",(data)=>{
-    //data from front end
-    //Now transfer data to all connected computers
-    io.socket.emit("beginPath",data);
+// socket.on("beginPath",(data)=>{
+//     //data from front end
+//     //Now transfer data to all connected computers
+//     io.socket.emit("beginPath",data);
 
-})
+// })
 })
