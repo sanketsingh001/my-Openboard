@@ -47,9 +47,21 @@ let boardtop = (canvas.getBoundingClientRect().top);
 let boardleft = (canvas.getBoundingClientRect().left);
 let iX, iY, fX, fY;
 let drawingmode = false;
-canvas.addEventListener("mousedown", function (e) {
-    iX = e.clientX;
-    iY = e.clientY - boardtop;
+
+
+
+
+
+
+
+
+
+
+canvas.addEventListener("touchstart", function (e) {
+    console.log(e);
+    iX = e.changedTouches[0].clientX;
+    iY = e.changedTouches[0].clientY - boardtop;
+    console.log("this is ix"+iX);
 //     let data={
 //   iX = e.clientX,
 //     iY = e.clientY - boardtop
@@ -63,9 +75,108 @@ canvas.addEventListener("mousedown", function (e) {
     }
 
 })
+canvas.addEventListener("click",function(e){
+    pencilToolCont.style.display = "none";
+        eraserToolCont.style.display="none";
 
+})
+
+canvas.addEventListener("touchend", function (e) {
+    console.log(e);
+    let url = canvas.toDataURL();
+    undoRedoTracker.push(url);
+    track = undoRedoTracker.length - 1;
+
+    if (cTool == "pencil") {
+        drawingmode = false;
+
+
+    }
+
+    else if (cTool == "line" || cTool == "rect") {
+
+        fX = e.changedTouches[0].clientX;
+        fY = e.changedTouches[0].clientY - boardtop;
+        width = fX - iX;
+        height = fY - iY;
+        if (cTool == "rect") {
+
+            tool.strokeRect(iX, iY, width, height)
+        } else if (cTool == "line") {
+           
+            tool.beginPath();
+            tool.moveTo(iX, iY);
+            tool.lineTo(fX, fY);
+            tool.stroke();
+        }
+    }
+})
+canvas.addEventListener("touchmove", function (e) {
+    if (drawingmode == false) {
+        return;
+    }
+    if (cTool == "pencil") {
+
+        fX = e.changedTouches[0].clientX-boardleft;
+        fY = e.changedTouches[0].clientY + boardtop;
+
+        tool.lineTo(fX, fY);
+        tool.stroke();
+        iX = fX;
+        iY = fY;
+    }
+
+
+
+})
+
+
+
+
+
+
+
+
+
+function beginPath(strokeObj){
+    tool.beginPath();
+    tool.moveTo(strokeObj.x, strokeObj.y);
+}
+
+function drawstroke(strokeObj){
+    tool.lineTo(strokeObj.x, strokeObj.y);
+    tool.stroke();
+    tool.moveTo(strokeObj.x, strokeObj.y);
+
+}
+
+let mousedown=false;
+
+canvas.addEventListener("mousedown", function (e) {
+    // console.log(e);
+    // iX = e.clientX;
+    // iY = e.clientY - boardtop;
+    // console.log("this is ix"+iX);
+    let data={
+  x: e.clientX,
+    y: e.clientY - boardtop
+
+    }
+   socket.emit("beginPath",data);
+    if (cTool == "pencil") {
+        drawingmode = true;
+      beginPath(data);
+    }
+
+})
+canvas.addEventListener("click",function(e){
+    pencilToolCont.style.display = "none";
+        eraserToolCont.style.display="none";
+
+})
 
 canvas.addEventListener("mouseup", function (e) {
+    
     let url = canvas.toDataURL();
     undoRedoTracker.push(url);
     track = undoRedoTracker.length - 1;
@@ -82,6 +193,7 @@ canvas.addEventListener("mouseup", function (e) {
         fY = e.clientY - boardtop;
         width = fX - iX;
         height = fY - iY;
+        
         if (cTool == "rect") {
 
             tool.strokeRect(iX, iY, width, height)
@@ -99,19 +211,47 @@ canvas.addEventListener("mousemove", function (e) {
         return;
     }
     if (cTool == "pencil") {
+        let data={
+            x: e.clientX,
+              y: e.clientY - boardtop
+          
+              }
+             socket.emit("drawstroke",data);
 
         fX = e.clientX-boardleft;
         fY = e.clientY + boardtop;
 
-        tool.lineTo(fX, fY);
-        tool.stroke();
-        iX = fX;
-        iY = fY;
+        drawstroke(data);
+        
     }
 
 
 
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 PencilColor.forEach(colorElem => {
     colorElem.addEventListener("click", (e) => {
@@ -119,6 +259,7 @@ PencilColor.forEach(colorElem => {
         let color = colorElem.classList[0];
         penColor = color;
         tool.strokeStyle = penColor;
+        
     }
     )
 
@@ -195,9 +336,15 @@ function undoRedoCanvas(trackObj) {
 
 }
 
-// socket.on("beginpath",(data)=>{
-//     //data-> data from server
-//     tool.beginPath();
-//     tool.moveTo(data.iX,data.iY)
 
-// })
+
+socket.on("beginpath",(data)=>{
+    //data-> data from server
+    beginPath(data);
+
+})
+socket.on("drawstroke",(data)=>{
+    //data-> data from server
+    drawstroke(data);
+
+})

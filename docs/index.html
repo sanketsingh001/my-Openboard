@@ -11,7 +11,7 @@
     <link rel="icon" href="./NewIcons/favicon.ico" type="image/x-icon"/>
 </head>
 
-<body>
+<body style="overflow:hidden;">
     <div class="options-cont">
         <i class="fas fa-bars"></i>
     </div>
@@ -64,10 +64,10 @@
         </div>
     </div> -->
     <canvas></canvas>
-    <!-- <script src="https://cdn.socket.io/4.4.0/socket.io.min.js" integrity="sha384-1fOn6VtTq3PWwfsOrk45LnYcGosJwzMHv+Xh/Jx5303FVOXzEnw0EpLv30mtjmlj" crossorigin="anonymous"></script> -->
-     <!-- <script>
-        let socket=io.connect("https://notify-open-board.herokuapp.com/")
-    </script> --> 
+    <script src="https://cdn.socket.io/4.4.0/socket.io.min.js" integrity="sha384-1fOn6VtTq3PWwfsOrk45LnYcGosJwzMHv+Xh/Jx5303FVOXzEnw0EpLv30mtjmlj" crossorigin="anonymous"></script>
+     <script>
+        let socket=io.connect("http://localhost:5000");
+    </script> 
     <script src="./tools.js"></script>
     <script src="./Canvas.js"></script>
 
