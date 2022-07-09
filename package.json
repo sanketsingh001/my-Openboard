@@ -1,14 +1,16 @@
 {
   "name": "open_board",
   "version": "1.0.0",
+  "description": "",
   "main": "app.js",
   "engines": {
-    "node": "16.13.1",
-    "npm": "8.1.2"
+    "node":"16.13.1",
+    "npm":"8.1.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "app.js"
+    "start": "node app.js"
+  
   },
   "author": "",
   "license": "ISC",
@@ -18,18 +20,5 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
-  },
-  "directories": {
-    "doc": "docs"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sanketsingh001/my-Openboard.git"
-  },
-  "keywords": [],
-  "bugs": {
-    "url": "https://github.com/sanketsingh001/my-Openboard/issues"
-  },
-  "homepage": "https://github.com/sanketsingh001/my-Openboard#readme",
-  "description": ""
+  }
 }
