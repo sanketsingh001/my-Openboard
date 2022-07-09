@@ -94,7 +94,7 @@ mode:true
    socket.emit("beginPath",data);
     if (cTool == "pencil") {
         drawingmode = true;
-      beginPath(data);
+    //   beginPath(data);
     }
 
 })
@@ -210,7 +210,7 @@ canvas.addEventListener("touchmove", function (e) {
         fX = e.changedTouches[0].clientX-boardleft;
         fY =  e.changedTouches[0].clientY + boardtop;
 
-        drawstroke(data);
+        // drawstroke(data);
         
     }
 
