@@ -291,7 +291,7 @@ mode:true
    socket.emit("beginPath",data);
     if (cTool == "pencil") {
         drawingmode = true;
-      beginPath(data);
+    //   beginPath(data);
     }
 
 })
@@ -343,7 +343,7 @@ socket.emit("drawrect",strokeObj2);
     
         } else if (cTool == "line") {
             socket.emit("drawLine",strokeObj);
-          drawline(strokeObj);
+        //   drawline(strokeObj);
         }
     }
 })
@@ -385,7 +385,7 @@ canvas.addEventListener("mousemove", function (e) {
         fX = e.clientX-boardleft;
         fY = e.clientY + boardtop;
 
-        drawstroke(data);
+        // drawstroke(data);
         
     }
 
@@ -425,7 +425,7 @@ PencilColor.forEach(colorElem => {
         let color = colorElem.classList[0];
         penColor = color;
         socket.emit("penColor",penColor);
-       changecolor(color);
+    //    changecolor(color);
         
     }
     )
