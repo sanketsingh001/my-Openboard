@@ -30,6 +30,14 @@ io.on("connection", (socket)=>{
     
         
     })
+    socket.on("pointermove",(data)=>{
+        // console.log("Hi2")
+        //data from front end
+        //Now transfer data to all connected computers
+        io.sockets.emit("pointermove",data);
+    
+        
+    })
 })
 
 

@@ -138,15 +138,20 @@ canvas.addEventListener("touchmove", function (e) {
 
 
 
+
 function beginPath(strokeObj){
     tool.beginPath();
     tool.moveTo(strokeObj.x, strokeObj.y);
 }
 
 function drawstroke(strokeObj){
+    
+
+    
     tool.lineTo(strokeObj.x, strokeObj.y);
     tool.stroke();
     tool.moveTo(strokeObj.x, strokeObj.y);
+    
 
 }
 
@@ -159,8 +164,8 @@ canvas.addEventListener("mousedown", function (e) {
     // console.log("this is ix"+iX);
     let data={
   x: e.clientX,
-    y: e.clientY - boardtop
-
+    y: e.clientY - boardtop,
+mode:true
     }
    socket.emit("beginPath",data);
     if (cTool == "pencil") {
@@ -206,8 +211,21 @@ canvas.addEventListener("mouseup", function (e) {
         }
     }
 })
+function pointermove(strokeObj){
+    console.log("Hi");
+    tool.moveTo(strokeObj.x, strokeObj.y);
+   
+
+}
 canvas.addEventListener("mousemove", function (e) {
     if (drawingmode == false) {
+        let data={
+            x: e.clientX,
+              y: e.clientY - boardtop
+          
+              }
+        // console.log("Hi1")
+        socket.emit("pointermove",data);
         return;
     }
     if (cTool == "pencil") {
@@ -346,5 +364,10 @@ socket.on("beginpath",(data)=>{
 socket.on("drawstroke",(data)=>{
     //data-> data from server
     drawstroke(data);
+
+})
+socket.on("pointermove",(data)=>{
+    //data-> data from server
+    pointermove(data);
 
 })
