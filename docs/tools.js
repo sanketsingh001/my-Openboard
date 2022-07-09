@@ -106,8 +106,13 @@ upload.addEventListener("click", (e) => {
 <div class="note-cont">
    <img src= "${url}"/>
 </div>`;
-        createSticky(stickytemplateHTML);
+socket.emit("createSticky",stickytemplateHTML);
+       
     })
+})
+socket.on("createSticky",(data)=>{
+   createSticky(data);
+    
 })
 
 function createSticky(stickytemplateHTML) {
@@ -121,6 +126,11 @@ function createSticky(stickytemplateHTML) {
     noteActions(minimize, remove, stickyCont);
 
     stickyCont.onmousedown = function (event) {
+        let obj={
+            s:stickyCont,
+            e:event
+        }
+        socket.emit("dragging",obj)
         dragAndDrop(stickyCont, event)
     };
 
@@ -128,6 +138,10 @@ function createSticky(stickytemplateHTML) {
         return false;
     };
 }
+socket.on("dragging",(data)=>{
+  dragAndDrop(data.s,data.e);
+    
+})
 
 
 sticky.addEventListener("click", (e) => {
@@ -137,9 +151,9 @@ sticky.addEventListener("click", (e) => {
     <div class="remove"></div>
 </div>
 <div class="note-cont">
-    <textarea spellcheck="false" ></textarea>
+    <textarea spellcheck="false class=text" ></textarea>
 </div>`;
-    createSticky(stickytemplateHTML);
+socket.emit("createSticky",stickytemplateHTML);
 
 
 })

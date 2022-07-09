@@ -38,6 +38,68 @@ io.on("connection", (socket)=>{
     
         
     })
+
+    socket.on("redoUndo",(data)=>{
+        // console.log("Hi2")
+        //data from front end
+        //Now transfer data to all connected computers
+        io.sockets.emit("redoUndo",data);
+    
+        
+    })
+    socket.on("drawrect",(data)=>{
+        // console.log("Hi2")
+        //data from front end
+        //Now transfer data to all connected computers
+        io.sockets.emit("drawrect",data);
+    
+        
+    })
+    socket.on("drawLine",(data)=>{
+        // console.log("Hi2")
+        //data from front end
+        //Now transfer data to all connected computers
+        io.sockets.emit("drawLine",data);
+    
+        
+    })
+    socket.on("createSticky",(data)=>{
+        // console.log("Hi2")
+        //data from front end
+        //Now transfer data to all connected computers
+        io.sockets.emit("createSticky",data);
+    
+        
+    })
+
+
+    socket.on("dragging",(data)=>{
+        // console.log("Hi2")
+        //data from front end
+        //Now transfer data to all connected computers
+        io.sockets.emit("dragging",data);
+    
+        
+    })
+
+
+    // socket.on("penColor",(data)=>{
+    //     // console.log("Hi2")
+    //     //data from front end
+    //     //Now transfer data to all connected computers
+    //     io.sockets.emit("penColor",data);
+    
+        
+    // })
+
+    // socket.on("eraserProp",(data)=>{
+    //     // console.log("Hi2")
+    //     //data from front end
+    //     //Now transfer data to all connected computers
+    //     io.sockets.emit("eraserProp",data);
+    
+        
+    // })
 })
 
 
