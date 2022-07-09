@@ -2,17 +2,21 @@ const express= require("express");
 // const { supportsPropertyIndex } = require("jsdom/lib/jsdom/living/generated/utils");
 const socket=require("socket.io")
 
-const app=express();//initializing the application and making the server ready
+const app=express();
+//initializing the application and making the server ready
 //this is used for dsiplaying index.html file 
-app.use(express.static("docs"));
+server = require('http').createServer(app)
+// app.use(express.static("docs"));
+io = require('socket.io').listen(server)
 
+server.listen(process.env.PORT || 3000);
 
-let port=process.env.PORT || 5000;
-let server=app.listen(port,()=>{
-console.log("Listening to port"+port);
-})
+// let port=process.env.PORT || 5000;
+// let server=app.listen(port,()=>{
+// console.log("Listening to port"+port);
+// })
 
-let io=socket(server);
+// let io=socket(server);
 io.on("connection", (socket)=>{
     console.log("Made socket Connection")
     // console.log(socket);
