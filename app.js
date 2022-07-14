@@ -83,14 +83,14 @@ io.on("connection", (socket)=>{
     })
 
 
-    // socket.on("penColor",(data)=>{
-    //     // console.log("Hi2")
-    //     //data from front end
-    //     //Now transfer data to all connected computers
-    //     io.sockets.emit("penColor",data);
+    socket.on("penColor",(data)=>{
+        // console.log("Hi2")
+        //data from front end
+        //Now transfer data to all connected computers
+        io.sockets.emit("penColor",data);
     
         
-    // })
+    })
 
     // socket.on("eraserProp",(data)=>{
     //     // console.log("Hi2")

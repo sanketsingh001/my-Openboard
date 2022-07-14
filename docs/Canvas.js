@@ -228,8 +228,16 @@ canvas.addEventListener("touchmove", function (e) {
 
 
 function beginPath(strokeObj){
+
     tool.beginPath();
+    console.log(strokeObj);
+    tool.strokeStyle=strokeObj.penC;
+    tool.lineWidth=strokeObj.penW;
     tool.moveTo(strokeObj.x, strokeObj.y);
+    // tool.strokeStyle=strokeObj.penC;
+  
+    // tool.lineWidth=strokeObj.penW;
+    
 }
 
 function drawstroke(strokeObj){
@@ -239,6 +247,7 @@ function drawstroke(strokeObj){
     tool.lineTo(strokeObj.x, strokeObj.y);
     tool.stroke();
     tool.moveTo(strokeObj.x, strokeObj.y);
+
     
 
 }
@@ -263,12 +272,9 @@ function drawrect(strokeObj){
 
 
 let mousedown=false;
-let initcor={
-
-}
-
+let penC="black";
 canvas.addEventListener("mousedown", function (e) {
-    console.log(cTool)
+    
 
     // console.log(e);
     // iX = e.clientX;
@@ -283,12 +289,13 @@ canvas.addEventListener("mousedown", function (e) {
     let data={
   x: e.clientX,
     y: e.clientY - boardtop,
-mode:true
+mode:true,
+penC:penC,
+penW:penWidth
     }
+  
 
-
-
-   socket.emit("beginPath",data);
+socket.emit("beginPath",data);
     if (cTool == "pencil") {
         drawingmode = true;
     //   beginPath(data);
@@ -352,7 +359,7 @@ socket.emit("drawrect",strokeObj2);
 
 
 function pointermove(strokeObj){
-    console.log("Hi");
+    
     tool.moveTo(strokeObj.x, strokeObj.y);
    
 
@@ -362,7 +369,7 @@ function pointermove(strokeObj){
 
 
 canvas.addEventListener("mousemove", function (e) {
-    console.log(cTool)
+  
 
     if (drawingmode == false) {
         let data={
@@ -410,9 +417,9 @@ canvas.addEventListener("mousemove", function (e) {
 
 
 
-function changecolor(penColor){
-    tool.strokeStyle = penColor;
-}
+// function changecolor(penColor){
+//     tool.strokeStyle = penColor;
+// }
 
 
 
@@ -423,8 +430,8 @@ PencilColor.forEach(colorElem => {
     colorElem.addEventListener("click", (e) => {
         cTool = "pencil";
         let color = colorElem.classList[0];
-        penColor = color;
-        socket.emit("penColor",penColor);
+        penC = color;
+        // socket.emit("penColor",penColor);
     //    changecolor(color);
         
     }
@@ -434,15 +441,42 @@ PencilColor.forEach(colorElem => {
 
 
 PencilWidthElem.addEventListener("change", (e) => {
-    tool.strokeStyle = PencilColor;
+    // tool.strokeStyle = penColor;
+    // console.log(penWidth);
+    // console.log(e);
     penWidth = PencilWidthElem.value;
-    tool.lineWidth = penWidth;
+
+
+    // tool.lineWidth = penWidth;
 })
 EraserWidthElem.addEventListener("change", (e) => {
-    tool.strokeStyle = eraserColor;
-    eraserWidth = EraserWidthElem.value;
-    tool.lineWidth = eraserWidth;
+    penC = eraserColor;
+   penWidth = EraserWidthElem.value;
+    // tool.lineWidth = eraserWidth;
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 eraser.addEventListener("click", (e) => {
     if (eraserFlag) {
@@ -450,7 +484,7 @@ eraser.addEventListener("click", (e) => {
         tool.lineWidth = eraserWidth;
     }
     else {
-        tool.strokeStyle = PencilColor;
+        tool.strokeStyle = penColor;
         tool.lineWidth = penWidth;
     }
 })
@@ -505,7 +539,7 @@ function undoRedoCanvas(trackObj) {
 
 
 
-socket.on("beginpath",(data)=>{
+socket.on("beginPath",(data)=>{
     //data-> data from server
     beginPath(data);
 
