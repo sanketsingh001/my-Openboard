@@ -89,8 +89,12 @@ canvas.addEventListener("touchstart", function (e) {
     let data={
   x: e.changedTouches[0].clientX,
     y:  e.changedTouches[0].clientY - boardtop,
-mode:true
+mode:true,
+penC:penC,
+      penW:penWidth
     }
+
+   
    socket.emit("beginPath",data);
     if (cTool == "pencil") {
         drawingmode = true;
