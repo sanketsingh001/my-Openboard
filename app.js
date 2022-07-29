@@ -8,20 +8,22 @@ app.use(express.static("docs"));
 
 
 let port=process.env.PORT ||5000;
-const socket=require('socket.io')(strapi.server, {
-    cors: {
-      origin: `https://live-board1.herokuapp.com/:${port}`,
-      credentials: true
-    }
-  });
+
 
 
 
 let server=app.listen(port,()=>{
 console.log("Listening to port"+port);
 })
+const io=require('socket.io')(server, {
+    cors: {
+      origin: `https://live-board1.herokuapp.com/:${port}`,
+      credentials: true
+    }
+  });
 
-let io=socket(server);
+// let io=socket(server)
+;
 io.on("connection", (socket)=>{
     console.log("Made socket Connection")
     // console.log(socket);
