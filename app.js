@@ -7,10 +7,10 @@ const app=express();//initializing the application and making the server ready
 app.use(express.static("docs"));
 
 
-let port=5000;
+let port=process.env.PORT ||5000;
 const socket=require('socket.io')(strapi.server, {
     cors: {
-      origin: "https://live-board1.herokuapp.com/:5000",
+      origin: `https://live-board1.herokuapp.com/:${port}`,
       credentials: true
     }
   });
