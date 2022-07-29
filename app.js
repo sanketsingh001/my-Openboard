@@ -1,6 +1,6 @@
 const express= require("express");
 // const { supportsPropertyIndex } = require("jsdom/lib/jsdom/living/generated/utils");
-const socket=require("socket.io")
+
 
 const app=express();//initializing the application and making the server ready
 //this is used for dsiplaying index.html file 
@@ -8,6 +8,10 @@ app.use(express.static("docs"));
 
 
 let port=process.env.PORT ||5000;
+const socket=io('https://live-board1.herokuapp.com/'+port, { transports : ['websocket'] });
+
+
+
 let server=app.listen(port,()=>{
 console.log("Listening to port"+port);
 })
