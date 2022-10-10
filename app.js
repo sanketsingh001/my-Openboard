@@ -1,7 +1,7 @@
 const express= require("express");
 // const { supportsPropertyIndex } = require("jsdom/lib/jsdom/living/generated/utils");
 const socket=require("socket.io")
-
+require('newrelic');
 const app=express();//initializing the application and making the server ready
 //this is used for dsiplaying index.html file 
 app.use(express.static("docs"));
